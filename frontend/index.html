@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>G7Static Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body class="bg-gradient-to-br from-blue-100 to-purple-200 font-inter antialiased flex items-center justify-center min-h-screen p-4">
+    <div id="main-card" class="bg-white p-8 rounded-3xl shadow-2xl w-full max-w-md transform transition-all duration-300 hover:scale-[1.01] flex flex-col">
+        <!-- Hero Section -->
+        <div class="text-center mb-8 flex-shrink-0">
+            <div class="inline-block p-4 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full shadow-lg mb-4">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-10 h-10 text-white"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="23"></line><line x1="8" y1="23" x2="16" y2="23"></line></svg>
+            </div>
+            <h1 class="text-4xl font-extrabold text-gray-800 mb-2 leading-tight">G7Static</h1>
+            <p class="text-lg text-gray-600">Securely upload and manage your audio files.</p>
+        </div>
+
+        <div id="message-area" class="mb-6 p-3 rounded-lg text-center hidden transition-all duration-300 ease-in-out flex-shrink-0"></div>
+        <div id="loading-spinner" class="hidden flex flex-col justify-center items-center mb-6 text-gray-600 flex-shrink-0">
+            <div class="loader ease-linear rounded-full border-4 border-t-4 border-blue-500 h-10 w-10 mb-2"></div>
+            <p id="loading-text">Processing request...</p>
+        </div>
+
+        <!-- Authentication Form -->
+        <div id="auth-section" class="flex-grow flex flex-col justify-center">
+            <h2 class="text-2xl font-semibold text-gray-700 mb-6 text-center">Login or Create Account</h2>
+            <form id="auth-form" class="space-y-5">
+                <div>
+                    <label for="auth-username" class="block text-sm font-medium text-gray-700 mb-1">Username</label>
+                    <div class="relative"><input type="text" id="auth-username" name="username" required class="pl-10 pr-4 py-2 block w-full border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm transition duration-150 ease-in-out" placeholder="Your username"><div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-gray-400"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></div></div>
+                </div>
+                <div>
+                    <label for="auth-password" class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+                    <div class="relative"><input type="password" id="auth-password" name="password" required class="pl-10 pr-10 py-2 block w-full border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm transition duration-150 ease-in-out" placeholder="Your password"><div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-gray-400"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg></div><button type="button" id="toggle-password-visibility" class="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-500 hover:text-gray-700 focus:outline-none"><svg id="eye-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg><svg id="eye-off-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 hidden"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-10-7-10-7a18.06 18.06 0 0 1 2.53-3.15M6.18 6.18A10.07 10.07 0 0 1 12 4c7 0 10 7 10 7a18.06 18.06 0 0 1-2.53 3.15"></path><line x1="1" y1="1" x2="23" y2="23"></line><path d="M11.29 11.29a3 3 0 0 1-4.24-4.24"></path></svg></button></div>
+                </div>
+                <div class="flex space-x-4">
+                    <button type="button" id="login-btn" class="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-md text-base font-semibold text-white bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition transform hover:-translate-y-0.5">Login</button>
+                    <button type="button" id="register-btn" class="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-md text-base font-semibold text-white bg-gradient-to-r from-green-500 to-teal-600 hover:from-green-600 hover:to-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition transform hover:-translate-y-0.5">Register</button>
+                </div>
+            </form>
+        </div>
+        
+        <!-- Logged-in Dashboard Section (initially hidden) -->
+        <div id="dashboard-section" class="hidden flex-grow flex flex-col min-h-0">
+            <p class="text-center text-lg text-purple-700 font-bold mb-4 p-2 bg-purple-50 rounded-lg shadow-inner flex-shrink-0">Welcome, <span id="display-username" class="text-blue-600"></span>!</p>
+            
+            <!-- This new wrapper div will handle the scrolling -->
+            <div class="flex-grow overflow-y-auto -mr-4 pr-4">
+                <div class="md:flex md:space-x-8">
+                    <!-- Left Column: Upload -->
+                    <div class="md:w-1/2 mb-8 md:mb-0 flex-shrink-0">
+                        <h3 class="text-xl font-semibold text-gray-700 mb-4">New Upload</h3>
+                        <form id="upload-audio-form" class="space-y-5 p-4 border border-gray-200 rounded-lg shadow-sm"><label for="audio-file" class="block text-sm font-medium text-gray-700 mb-1">Select Audio File</label><input type="file" id="audio-file" name="audioFile" accept="audio/*" required class="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-purple-100 file:text-purple-700 hover:file:bg-purple-200 transition"><button type="submit" id="upload-audio-btn" class="w-full flex justify-center items-center py-3 px-4 border border-transparent rounded-lg shadow-md text-base font-semibold text-white bg-gradient-to-r from-purple-600 to-pink-700 hover:from-purple-700 hover:to-pink-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 transition transform hover:-translate-y-0.5"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 mr-2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>Upload Audio</button></form>
+                    </div>
+                    <!-- Right Column: File Lists with Tabs -->
+                    <div class="md:w-1/2 flex flex-col">
+                        <div class="border-b border-gray-200 mb-4 flex-shrink-0">
+                            <nav class="-mb-px flex space-x-6" aria-label="Tabs">
+                                <button id="audio-tab" class="tab-btn tab-active">My Audio</button>
+                                <button id="transcripts-tab" class="tab-btn tab-inactive">My Transcripts</button>
+                            </nav>
+                        </div>
+                        <!-- Audio Files Panel -->
+                        <div id="audio-panel" class="file-panel">
+                            <div id="audio-file-list" class="space-y-2"></div>
+                        </div>
+                        <!-- Transcripts Panel -->
+                        <div id="transcript-panel" class="file-panel hidden">
+                            <div id="transcript-file-list" class="space-y-2"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button id="logout-btn" class="mt-6 w-full flex justify-center items-center py-3 px-4 border border-transparent rounded-lg shadow-md text-base font-semibold text-white bg-gradient-to-r from-red-500 to-orange-600 hover:from-red-600 hover:to-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition transform hover:-translate-y-0.5 flex-shrink-0"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 mr-2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>Logout</button>
+        </div>
+    </div>
+    <script src="./js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,7 @@
+.venv
+.env
+g7static.log
+__pycache__
+*.pyc
+Documentation
+G7Static.postman_collection.json

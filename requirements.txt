@@ -1,0 +1,13 @@
+fastapi[standard]
+uvicorn
+pydantic
+python-dotenv
+boto3
+python-multipart
+sqlalchemy
+pymysql
+cryptography
+python-multipart
+passlib[bcrypt]
+python-jose[cryptography]
+bcrypt
